@@ -5,6 +5,7 @@ The purpose of this project is to create a day scheduler to map out important ta
 
 ##Application
 The deployed application can be found at the following URL:
+https://sarabarnett.github.io/Challenge-5-dayscheduler/
 
 ##Contributions
 Beyond the starter code given, all contributions were made by Sara Barnett.
