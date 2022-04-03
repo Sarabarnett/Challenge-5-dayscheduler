@@ -1,47 +1,6 @@
-
-
 //insert current date
 var date = $("#currentDay")
 .text(moment().format('dddd, MMMM Do YYYY'));
-
-var currentHour = moment().format('h:mm:ss a');
-
-//create variable for each hour associated with html 
-var nine = $("#9am");
-var ten = $("#10am");
-var eleven = $("#11am");
-var twelve = $("#12pm");
-var one = $("#1pm");
-var two = $("#2pm");
-var three = $("#3pm");
-var four = $("#4pm");
-var five = $("#5pm");
-
-var hour = moment().hours();
-
-//current hour background
-function hourBackground () {
-
-  $(".form-control").each(function () {
-    var time = parseInt($(this).attr("id"));
-    hour = parseInt(hour)
-
-    //compart time vs hour
-    if (hour > time) {
-      $(this).addClass("past");
-    } 
-    else if ( hour < time) {
-      $(this).addClass("future");
-    }
-    else {
-      $(this).addClass("present");
-    }
-  });
-};
-
-var taskInput;
-
-
 
 
 $(document).ready(function() {
@@ -49,12 +8,55 @@ $(document).ready(function() {
 
   //save button add to localstorage
   $(".saveBtn").on("click", function() {
-    taskInput = document.getElementsByClassName("form-control").val();
-    console.log(taskInput);
-    hourDiv = document.getElementsByClassName("hour").text().trim();
-    localStorage.setItem(hourDiv, JSON.stringify(taskInput));
+    var taskText = $(this).siblings(".description").val();
+    var time = $(this).parent().attr("id");
+
+    //set text to local storage
+    localStorage.setItem(time, taskText);
   });
-
-
-
 });
+
+//load tasks from localStorage
+$("#hour9 .description").val(localStorage.getItem("hour9"));
+$("#hour10 .description").val(localStorage.getItem("hour10"));
+$("#hour11 .description").val(localStorage.getItem("hour11"));
+$("#hour12 .description").val(localStorage.getItem("hour12"));
+$("#hour13 .description").val(localStorage.getItem("hour13"));
+$("#hour14 .description").val(localStorage.getItem("hour14"));
+$("#hour15 .description").val(localStorage.getItem("hour15"));
+$("#hour16 .description").val(localStorage.getItem("hour16"));
+$("#hour17 .description").val(localStorage.getItem("hour17"));
+
+//current hour background
+function hourBackground () {
+
+  //get current hour
+  var hour = moment().hour();
+
+  $(".time-block").each(function () {
+    var blockHour = parseInt($(this).attr("id").split("hour")[1]);
+    console.log(hour, blockHour);
+  
+
+    //compart hour block vs hour
+    if (hour > blockHour) {
+      $(this).addClass("past");
+      $(this).removeClass("future");
+      $(this).removeClass("present");
+    } 
+    else if (hour < blockHour) {
+      $(this).addClass("future");
+      $(this).removeClass("present");
+      $(this).removeClass("past");
+    }
+    else {
+      $(this).addClass("present");
+      $(this).removeClass("future");
+      $(this).removeClass("past");
+    }
+  })
+  };
+
+
+
+
